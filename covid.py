@@ -23,7 +23,8 @@ def get_data():
     district_data = [data for data in state_data[0]['districtData'] if district.lower() in data['district'].lower()]
     if district_data:
         return district_data[0]
-    return {"Could not find data for the named state"}
+    # TODO Might be a good idea to send the name of states and district
+    return {"message": "Could not find data "}
 
 
 if __name__ == '__main__':
