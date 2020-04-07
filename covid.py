@@ -19,12 +19,16 @@ def get_data():
     state = request.args.get('state', default='', type=str)
     district = request.args.get('district', default='', type=str)
     india_data = requests.get('https://api.covid19india.org/v2/state_district_wise.json').json()
+    if not state:
+        return {"message": "Please send state name"}
+    if not district:
+        return {"message": "Please send district name"}
     state_data = [data for data in india_data if state.lower() in data['state'].lower()]
     district_data = [data for data in state_data[0]['districtData'] if district.lower() in data['district'].lower()]
     if district_data:
         return district_data[0]
-    # TODO Might be a good idea to send the name of states and district
-    return {"message": "Could not find data "}
+    # TODO Might be a good idea to send the name of states and district as possible list of state and district name
+    return {"message": "Could not find data"}
 
 
 if __name__ == '__main__':
